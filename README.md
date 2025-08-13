@@ -74,3 +74,39 @@ VALUES (s.order_id, s.status, s.is_gift, s.discount);
 - SQL + PySpark workflow integration
 
 ---
+
+## 🚀 Upgrade Notes
+
+This upgrade adds a Bronze→Silver pipeline and feature engineering:
+
+**DataFrames produced**
+- `source_df` (raw nested JSON with `customer`, `items`)
+- `bronze_df` (normalized fields + `ingestion_timestamp`, `data_source`, `item_count`, `has_null_items`)
+- `silver_enhanced` (features: `order_value_tier`, `order_complexity`, `email_type`, temporal features, status flags, `discount_percentage`, `final_order_value`, `avg_item_value`, `price_per_unit`, `data_completeness`)
+- `silver_clean` (quality-checked slice)
+- `verification_df` (side-by-side checks for transparency)
+- `silver_df` / `customer_features` (for analytics/ML)
+
+**Temporal features**
+`days_since_order`, `order_day_of_week`, `order_hour`, `order_month`, `order_year`, `order_day_type`, `order_time_of_day`
+
+**Status flags**
+`is_cancelled`, `is_completed`, `is_pending`, `is_shipped`
+
+## Upgrade Notes
+
+This upgrade adds a Bronze→Silver pipeline and feature engineering:
+
+**DataFrames produced**
+- `source_df` (raw nested JSON with `customer`, `items`)
+- `bronze_df` (normalized fields + `ingestion_timestamp`, `data_source`, `item_count`, `has_null_items`)
+- `silver_enhanced` (features: `order_value_tier`, `order_complexity`, `email_type`, temporal features, status flags, `discount_percentage`, `final_order_value`, `avg_item_value`, `price_per_unit`, `data_completeness`)
+- `silver_clean` (quality-checked slice)
+- `verification_df` (side-by-side checks for transparency)
+- `silver_df` / `customer_features` (for analytics/ML)
+
+**Temporal features**
+`days_since_order`, `order_day_of_week`, `order_hour`, `order_month`, `order_year`, `order_day_type`, `order_time_of_day`
+
+**Status flags**
+`is_cancelled`, `is_completed`, `is_pending`, `is_shipped`
